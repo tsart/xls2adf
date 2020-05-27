@@ -3,7 +3,7 @@
 
 # xls2adf
 
-Excel file loader with additional meta objects that you can instantly use in Azure Data Factory pipelines.
+Excel file loader with ready-to-use JSON object for Azure Data Factory.
 
 ## Install
 
@@ -20,11 +20,11 @@ let blob: any = fs.readFileSync('test.xls');
 let files: parser.OutputFormat[] = parser.parseXLSX(config, blob);
 ```
 
-See `__test__` folder for good samples.
+See more samples in `__test__` folder.
 
 ## Config schema
 
-This sample config defines `A1`, `A2` cells and `B4:C7` range to extract as JSON object.
+This sample config defines `A1`, `A2` cells and `B4:C7` range to extract as JSON document.
 
 ```yml
 domain: excel
@@ -56,6 +56,51 @@ datasets:
     range: B4:C7
 ```
 
-## Credits
+## Output
 
-Thank you [daikiueda](https://github.com/daikiueda/xls2adf) for sample Excel files and a few good insights
+```json
+OutputFormat {
+  domain: string;
+  objectName: string;
+  description?: string;
+  source: {
+    type: string;
+    fileName: string;
+    description?: string;
+  };
+  timestamp: Date;
+  columns: Column[];
+  dataMapping?: Mapping;
+  metaMapping?: Mapping;
+  defaultSettings: DefaultSettings;
+  ddlPreCopyScript: string;
+  data: any[];
+}
+```
+
+### Mapping
+
+`dataMapping` and `metaMapping` objects are ready to use as dynamic mapping attributes in ADF Copy Activity
+<img src="assets/adfCopyDataMapping.png" width="600" />
+
+### PreCopy Script
+
+`ddlPreCopyScript` holds generated T-SQL statement that creates a new table with defined Excel dataset `<Columns>` and deletes existing rows if table needs a reload.
+
+```sql
+IF SCHEMA_ID('{{schemaName}}') IS NULL EXEC ('CREATE SCHEMA [{{schemaName}}]');
+IF OBJECT_ID('[{{schemaName}}].[{{tableName}}]') IS NULL
+CREATE TABLE [{{schemaName}}].[{{tableName}}] (
+  <Columns>,
+  [dwSource] varchar(1000),
+  [dwSnapshotOn] DateTime
+);
+DELETE FROM [{{schemaName}}].[{{tableName}}] WHERE dwSnapshotOn = '{{timestamp}}';
+```
+
+`{{schemaName}}`, `{{tableName}}`, and `{{timestamp}}` placeholders should be replaced with the ADF pipeline logic.
+
+## Credits and Contributions
+
+Thank you [daikiueda](https://github.com/daikiueda/xls2adf) for sample Excel files and a few good insights.
+Any contribution and suggestions is welcome.
