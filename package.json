@@ -1,0 +1,41 @@
+{
+  "name": "@tsart/xls2adf",
+  "version": "0.0.1",
+  "description": "Excel loader with Azure Data Factory meta objects",
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc",
+    "watch": "tsc -w",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsart/xls2adf.git"
+  },
+  "keywords": [
+    "excel",
+    "adf",
+    "data-factory",
+    "azure",
+    "etl"
+  ],
+  "author": "Serge Artishev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tsart/xls2adf/issues"
+  },
+  "homepage": "https://github.com/tsart/xls2adf#readme",
+  "dependencies": {
+    "xlsx": "^0.16.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.5",
+    "jest": "^26.0.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.0.0",
+    "typescript": "^3.9.3"
+  }
+}
