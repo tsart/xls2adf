@@ -110,7 +110,7 @@ describe('Excel parser', () => {
     let blob: any = fs.readFileSync(config.fileName);
     let res: OutputFormat[] = parser.parseXLSX(config, blob);
     expect(res[0].ddlPreCopyScript).toBe(
-      `IF SCHEMA_ID('{{schemaName}}') IS NULL EXEC ('CREATE SCHEMA [{{schemaName}}]'); IF OBJECT_ID('[{{schemaName}}].[{{tableName}}]') IS NULL CREATE TABLE [{{schemaName}}].[{tableName}}] ([ReportTitle] nvarchar(255),[ReportDate] datetime,[columnA] nvarchar(255),[column B] nvarchar(255),[column-C] nvarchar(255), [dwSnapshotOn] DateTime); DELETE FROM [{{schemaName}}].[{{tableName}}] WHERE dwSnapshotOn = '{{timestamp}}';`
+      `IF SCHEMA_ID('{{schemaName}}') IS NULL EXEC ('CREATE SCHEMA [{{schemaName}}]'); IF OBJECT_ID('[{{schemaName}}].[{{tableName}}]') IS NULL CREATE TABLE [{{schemaName}}].[{tableName}}] ([ReportTitle] nvarchar(255),[ReportDate] datetime,[columnA] nvarchar(255),[column B] nvarchar(255),[column-C] nvarchar(255), [dwSource] varchar(1000), [dwSnapshotOn] DateTime); DELETE FROM [{{schemaName}}].[{{tableName}}] WHERE dwSnapshotOn = '{{timestamp}}';`
     );
   });
 });
