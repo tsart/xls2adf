@@ -58,7 +58,7 @@ datasets:
 
 ## Output
 
-```json
+```js
 OutputFormat {
   domain: string;
   objectName: string;
