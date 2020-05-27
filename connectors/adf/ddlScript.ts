@@ -15,6 +15,6 @@ export const ddlPreCopyScript = (defaults: DefaultSettings, columns: Column[]): 
     let dbColumn: string = `[${column.name}] ${ddlColumn(dbColumnType, size, precision)}`;
     dbColumns.push(dbColumn);
   });
-  let res: string = `IF SCHEMA_ID('{{schemaName}}') IS NULL EXEC ('CREATE SCHEMA [{{schemaName}}]'); IF OBJECT_ID('[{{schemaName}}].[{{tableName}}]') IS NULL CREATE TABLE [{{schemaName}}].[{tableName}}] (${dbColumns}, [dwSource] varchar(1000), [dwSnapshotOn] DateTime); DELETE FROM [{{schemaName}}].[{{tableName}}] WHERE dwSnapshotOn = '{{timestamp}}';`;
+  let res: string = `IF SCHEMA_ID('{{schemaName}}') IS NULL EXEC ('CREATE SCHEMA [{{schemaName}}]'); IF OBJECT_ID('[{{schemaName}}].[{{tableName}}]') IS NULL CREATE TABLE [{{schemaName}}].[{{tableName}}] (${dbColumns}, [dwSource] varchar(1000), [dwSnapshotOn] DateTime); DELETE FROM [{{schemaName}}].[{{tableName}}] WHERE dwSnapshotOn = '{{timestamp}}';`;
   return res;
 };
