@@ -1,6 +1,6 @@
 {
   "name": "@tsart/xls2adf",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Excel loader with Azure Data Factory meta objects",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

@@ -1,6 +1,6 @@
 import * as parser from '../parser';
 import * as fs from 'fs';
-import { InputFormat } from '../models/InputFormat';
+import { InputFormat, DefaultSettings } from '../models/InputFormat';
 import { Settings } from '../connectors/config';
 import { OutputFormat } from '../models/OutputFormat';
 
@@ -56,5 +56,18 @@ describe('Configuration tests', () => {
       name: 'ReportDate',
       sheetName: 'Sheet1',
     });
+  });
+  it('should return default settings', async () => {
+    let defaultSettings: DefaultSettings = {};
+    let settings = new Settings({ ...config, ...{ defaultSettings: defaultSettings } });
+    expect(settings.config.defaultSettings?.dataTypes?.String?.size).toBe(255);
+  });
+  it('should return modified default settings', async () => {
+    let defaultSettings: DefaultSettings = {
+      columns: [{ name: 'ReportTitle', dbColumnType: 'varchar(100)' }],
+    };
+    let settings = new Settings({ ...config, ...{ defaultSettings: defaultSettings } });
+    expect(settings.config.defaultSettings?.dataTypes?.String?.size).toBe(255);
+    expect(settings.get('defaultSettings').columns[0]?.dbColumnType).toBe('varchar(100)');
   });
 });

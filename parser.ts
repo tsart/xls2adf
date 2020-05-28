@@ -22,7 +22,7 @@ export const parseXLSX = (config: InputFormat, inputBlob: any): OutputFormat[] =
       timestamp: new Date(),
       source: { type: 'Excel', fileName: config.fileName, description: config.description },
       columns: [],
-      defaultSettings: { dataTypes: { Decimal: { size: 20, precision: 4 }, String: { size: 255 } } },
+      defaultSettings: config.defaultSettings,
       ddlPreCopyScript: '',
       data: [],
     };

@@ -1,10 +1,11 @@
-import { InputFormat } from '../models/InputFormat';
+import { InputFormat, DefaultSettings } from '../models/InputFormat';
 
 export class Settings {
   config: InputFormat;
 
   constructor(config: InputFormat) {
     this.config = config;
+    this.setDefaultSettings();
   }
 
   get = (key: string) => {
@@ -34,5 +35,12 @@ export class Settings {
   getDatasetOptions = (datasetName: string): any => {
     let options = this.get('datasets').find((item) => item.name === datasetName);
     return options;
+  };
+
+  setDefaultSettings = () => {
+    let defaultSettings: DefaultSettings = {
+      dataTypes: { Decimal: { size: 14, precision: 2 }, String: { size: 255 } },
+    };
+    this.config.defaultSettings = { ...defaultSettings, ...(this.config.defaultSettings || {}) };
   };
 }

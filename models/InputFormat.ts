@@ -17,6 +17,18 @@ export interface Dataset {
   range: string;
 }
 
+export interface DefaultSettings {
+  dataTypes?: {
+    String: { size: number };
+    Decimal: { size: number; precision: number };
+  };
+  columns?: [
+    {
+      name: string;
+      dbColumnType: string;
+    }
+  ];
+}
 export interface InputFormat {
   domain: string;
   fileName: string;
@@ -25,6 +37,7 @@ export interface InputFormat {
   resultObjects: ResultObject[];
   cells?: Cell[];
   datasets?: Dataset[];
+  defaultSettings?: DefaultSettings;
 }
 
 export type ExcelDataType = 'b' | 'n' | 'e' | 's' | 'd' | 'z';

@@ -1,4 +1,5 @@
 import { ADFColumnType, Mapping } from './DataFactory';
+import { DefaultSettings } from './InputFormat';
 
 export interface Column {
   name: string;
@@ -9,12 +10,6 @@ export interface Column {
   precision?: number;
 }
 
-export interface DefaultSettings {
-  dataTypes: {
-    String: { size: number };
-    Decimal: { size: number; precision: number };
-  };
-}
 
 export interface OutputFormat {
   domain: string;
@@ -31,5 +26,6 @@ export interface OutputFormat {
   metaMapping?: Mapping;
   defaultSettings: DefaultSettings;
   ddlPreCopyScript: string;
-  data: any[];
+  dataFile?: string;
+  data?: any[];
 }

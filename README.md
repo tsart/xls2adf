@@ -3,7 +3,7 @@
 
 # xls2adf
 
-Excel file loader with ready-to-use JSON object for Azure Data Factory.
+Excel file loader with ready-to-use JSON objects for Azure Data Factory.
 
 ## Install
 
